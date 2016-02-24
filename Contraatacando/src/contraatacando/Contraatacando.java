@@ -115,12 +115,12 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         sonidoCatch = Applet.newAudioClip(eaURL);
         
         // Creo el sonido de colisión al disparar una bala.
-        URL eaURL = Contraatacando.class.getResource("dispara.wav");
+        URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
         sonidoDispara = Applet.newAudioClip(eaURL);
         
         
         // Creo el sonido de vida menos.
-        URL eaURL2 = Contraatacando.class.getResource("pain.wav");
+        URL eaURL3 = Contraatacando.class.getResource("pain.wav");
         sonidoVida = Applet.newAudioClip(eaURL2);
     }
     
@@ -233,19 +233,23 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                 break;
         }
         
-        actualizaBuenosyMalos(); // actualizamos buenos y malos
+        actualizaMalosyBalas(); // actualizamos a los malos y las balas
     }
     
     /** 
-     * actualizaBuenosyMalos
+     * actualizaMalosyBalas
      * 
      * Metodo que actualiza la posicion de los buenos y malos 
      * 
      */
-    public void actualizaBuenosyMalos() {
+    public void actualizaMalosyBalas() {
         for (Malo mloMalo : lklMalos){
             // Se actualiza la posicion del malo
-            mloMalo.setX(mloMalo.getX() - iVelMalo); 
+            mloMalo.avanza(); 
+        }
+        for (Bala blaBala : lklBalas){
+            // Se actualiza la posicion del malo
+            blaBala.avanza(); 
         }
     }
 
