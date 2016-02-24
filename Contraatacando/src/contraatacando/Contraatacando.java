@@ -53,6 +53,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     private int iVidas;                     // Cantidad de vidas
     private int iContColisionMalo;          // Cantidad de malos colisionados
     private Image imaGameOver;              // Imagen fondo terminado el juego
+    private Image imaVida;
     
     /* variable para el control de puntos */
     private int iPuntos;                    // Cantidad de puntos acumulados
@@ -99,6 +100,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Creo la imagen de Pausa.
         URL urlImagenPausa = this.getClass().getResource("Pausa.png");
         imaPausa = Toolkit.getDefaultToolkit().getImage(urlImagenPausa);
+        
+        // Creo la imagen de las vidas.
+        URL urlImagenVida = this.getClass().getResource("vidaB.png");
+        imaVida = Toolkit.getDefaultToolkit().getImage(urlImagenVida);
         
     }
     
@@ -376,25 +381,17 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         if (iVidas > 0) {
             // si la imagen ya se cargo
             if (basPrincipal != null && imaImagenFondo != null && 
-                    lklMalos != null) {
+                    lklMalos != null && imaVida != null && imaPausa != null) {
                 // llamamos funcion que dibuja el juego
                 dibujarJuego(graDibujo);
+                dibujarVidas(graDibujo);
+                dibujarPausa(graDibujo);
             } // si no se ha cargado se dibuja un mensaje 
             else {
                 // Da un mensaje mientras se carga el dibujo	
                 graDibujo.drawString("No se cargo la imagen..", 20, 50);
             }
-            if (bPausa){
-                // si la imagen ya se cargo
-                if (imaPausa != null) {
-                    // llamamos funcion que dibuja el juego
-                    dibujarPausa(graDibujo);
-                } // si no se ha cargado se dibuja un mensaje 
-                else {
-                    // Da un mensaje mientras se carga el dibujo	
-                    graDibujo.drawString("No se cargo la imagen..", 20, 50);
-                }    
-            }
+            
             
         } else {
             // dibujo la imagen de fin de juego
@@ -424,9 +421,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             basMalo.paint(graDibujo, this);
         }
         // Dibujamos el texto con las vidas y el puntaje
-        graDibujo.setFont(new Font("Arial",Font.BOLD,20));
-        graDibujo.setColor(new Color(208, 2, 27));
-        graDibujo.drawString("Vidas: " + iVidas + "  Puntos: " + iPuntos , 30, 50);
+        graDibujo.setFont(new Font("Arial",Font.BOLD,25));
+        graDibujo.setColor(new Color(255, 255, 255));
+        graDibujo.drawString("Puntos: " + iPuntos , 30, 50);
     }
     
     /**
@@ -438,15 +435,33 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void dibujarPausa(Graphics graDibujo){
-        // Dibuja la imagen de fondo
-        graDibujo.drawImage(imaPausa, 0, 0, getWidth(),getHeight(), this);
-        // Dibujamos el texto con las vidas y el puntaje
-        graDibujo.setFont(new Font("Arial",Font.BOLD,25));
-        graDibujo.setColor(new Color(255, 255, 255));
-        graDibujo.drawString("Presiona la tecla P para salir de Pausa", 
-                getWidth()/2 - 220, getHeight()/4);
+        
+        if (bPausa){
+            // Dibuja la imagen de fondo
+            graDibujo.drawImage(imaPausa, 0, 0, getWidth(),getHeight(), this);
+            // Dibujamos el texto con las vidas y el puntaje
+            graDibujo.setFont(new Font("Arial",Font.BOLD,25));
+            graDibujo.setColor(new Color(255, 255, 255));
+            graDibujo.drawString("Presiona la tecla P para salir de Pausa", 
+                getWidth()/2 - 220, getHeight()/4);      
+        }
+        
     }
-
+    
+    /**
+     * dibujarPausa
+     * 
+     * En este metodo se dibuja la pausa del juego.
+     * 
+     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * 
+     */
+    public void dibujarVidas(Graphics graDibujo){
+        for (int iV = 0; iV < iVidas; iV++){
+            graDibujo.drawImage(imaVida, getWidth()- 40 - (32 * iV), 30, this);
+        }
+    }
+    
     @Override
     public void keyTyped(KeyEvent keyEvent) {
         
