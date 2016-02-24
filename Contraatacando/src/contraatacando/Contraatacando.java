@@ -29,7 +29,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     
     private Base basPrincipal;              // Objeto principal
     /* lista de los malos */
-    private LinkedList<Base> lklMalos; 
+    private LinkedList<Malo> lklMalos; 
+    /* lista de las balas */
+    private LinkedList<Bala> lklBalas;
     int iRanMalos;
     private Image imaImagenFondo;           // para dibujar la imagen de fondo
    
@@ -149,27 +151,24 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void inicializoMalos() {
         /* creo la lista de los malos */
-        lklMalos = new LinkedList<Base>();
-        
-        /* genero el random de los malos entre 8 y 10 */
-        iRanMalos = (int) (Math.random() * 3) + 8;
+        lklMalos = new LinkedList<Malo>();
         
         // Defino la de los malos.
 	URL urlImagenMalos = this.getClass().getResource("malo.png");
         
         // Creo a los malos
-        for(int iI = 0; iI < iRanMalos; iI++){
+        for(int iI = 0; iI < 10; iI++){
             // Creo a un malo
-            Base basMalo = new Base (0, 0, 
+            Malo mloMalo = new Malo (0, 0, 
                 Toolkit.getDefaultToolkit().getImage(urlImagenMalos));
             // Añado al malo a la lista
-            lklMalos.add(basMalo);
+            lklMalos.add(mloMalo);
         }
         
         // Posiciono a los malos
-        for (Base basMalo : lklMalos){
-            basMalo.setX((int)(Math.random()*(getWidth() * 2) + getWidth()));
-            basMalo.setY((int)(Math.random()*(getHeight()-basMalo.getAlto())));
+        for (Malo mloMalo : lklMalos){
+            mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
+            mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
         }
     }
     
@@ -244,12 +243,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void actualizaBuenosyMalos() {
-        for (Base basMalo : lklMalos){
-            /* genero el random de la velocidad del malo entre 3 y 5 */
-            int iRanVelocidad = (int) (Math.random() * 3) + 3;
-            
-            // Se actualiza la posicion del bueno
-            basMalo.setX(basMalo.getX() - iRanVelocidad); 
+        for (Malo mloMalo : lklMalos){
+            // Se actualiza la posicion del malo
+            mloMalo.setX(mloMalo.getX() - iVelMalo); 
         }
     }
 
@@ -280,21 +276,22 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void checaColisionMalos(){
-        for (Base basMalo : lklMalos) {
+        for (Malo mloMalo : lklMalos) {
             // Checa si algun malo llego hasta el lado izquierdo
-            if (basMalo.getX() <= 0) {
+            if (mloMalo.getX() <= 0) {
                 // Se reposiciona malo
-                basMalo.setX((int)(Math.random()*(getWidth() * 2) + getWidth()));
-                basMalo.setY((int)(Math.random()*(getHeight()-basMalo.getAlto())));
+                mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
+                mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
             }
 
             // Checar si malo colisiona con el principal
-            if (basPrincipal.colisiona(basMalo)){
-                iContColisionMalo++; // Sumar una colision al contador
+            if (basPrincipal.colisiona(mloMalo)){
+                iPuntos--;              // Bajamos un punto por la colisión
+                iContColisionMalo++;    // Sumar una colision al contador
                 
                 // Se reposiciona el malo
-                basMalo.setX((int)(Math.random()*(getWidth() * 2) + getWidth()));
-                basMalo.setY((int)(Math.random()*(getHeight()-basMalo.getAlto())));
+                mloMalo.setX((int)(Math.random()*(getWidth() * 2) + getWidth()));
+                mloMalo.setY((int)(Math.random()*(getHeight()-mloMalo.getAlto())));
                 
                 // Checamos si ya van 5 colisiones
                 if (iContColisionMalo == 5) {
@@ -303,6 +300,33 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                     sonidoPain.play();// Suena efecto cuando se pierde una vida
                 }
             }  
+        }
+    }
+    
+    /**
+     * checaColisionBalas
+     * 
+     * Metodo usado para checar la colision de las balas.
+     * 
+     */
+    public void checaColisionBalas(){
+        for (Bala blaBala : lklBalas) {
+            // Checa si algun malo choco con la ventana
+            if (blaBala.getX() <= 0 || blaBala.getY() <= 0 || 
+                    blaBala.getX() > (getWidth() - blaBala.getAncho())  ) {
+                // Se elimina la bala
+                
+            } else {
+               // Checar si malo colisiona con algun malo
+                for (Malo mloMalo : lklMalos) {
+                    if (blaBala.colisiona(mloMalo)){
+                        // Desaparecemos la bala y al malo
+                        // Sumamos 10 puntos
+                    }
+                } 
+            }
+
+            
         }
     }
     
