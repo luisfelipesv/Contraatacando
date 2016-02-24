@@ -16,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.Vector;
 import javax.swing.JFrame;
 
 /**
@@ -352,6 +351,16 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void paint1(Graphics graDibujo) {
         if (iVidas > 0) {
+            // si la imagen ya se cargo
+            if (basPrincipal != null && imaImagenFondo != null && 
+                    lklMalos != null) {
+                // llamamos funcion que dibuja el juego
+                dibujarJuego(graDibujo);
+            } // si no se ha cargado se dibuja un mensaje 
+            else {
+                // Da un mensaje mientras se carga el dibujo	
+                graDibujo.drawString("No se cargo la imagen..", 20, 50);
+            }
             if (bPausa){
                 // si la imagen ya se cargo
                 if (imaPausa != null) {
@@ -362,17 +371,6 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                     // Da un mensaje mientras se carga el dibujo	
                     graDibujo.drawString("No se cargo la imagen..", 20, 50);
                 }    
-            } else {
-                // si la imagen ya se cargo
-                if (basPrincipal != null && imaImagenFondo != null && 
-                    lklMalos != null) {
-                    // llamamos funcion que dibuja el juego
-                    dibujarJuego(graDibujo);
-                } // si no se ha cargado se dibuja un mensaje 
-                else {
-                    // Da un mensaje mientras se carga el dibujo	
-                    graDibujo.drawString("No se cargo la imagen..", 20, 50);
-                }
             }
             
         } else {
@@ -420,9 +418,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Dibuja la imagen de fondo
         graDibujo.drawImage(imaPausa, 0, 0, getWidth(),getHeight(), this);
         // Dibujamos el texto con las vidas y el puntaje
-        graDibujo.setFont(new Font("Arial",Font.BOLD,20));
-        graDibujo.setColor(new Color(208, 2, 27));
-        graDibujo.drawString("Vidas: " + iVidas + "  Puntos: " + iPuntos , 30, 50);
+        graDibujo.setFont(new Font("Arial",Font.BOLD,25));
+        graDibujo.setColor(new Color(255, 255, 255));
+        graDibujo.drawString("Presiona la tecla P para salir de Pausa", 
+                getWidth()/2 - 220, getHeight()/4);
     }
 
     @Override
