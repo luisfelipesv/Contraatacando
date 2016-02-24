@@ -20,7 +20,10 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author luisfelipesv
+ * @authores luisfelipesv y melytc
+ * 
+ * Luis Felipe Salazar A00817158
+ * Melissa Janet Treviño A00816715
  */
 public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
@@ -59,30 +62,22 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     private Image imaPausa;                 // Imagen al pausar
     
     public Contraatacando(){
-        
-        /* creo la lista de las Balas */
-        lklBalas= new LinkedList<Bala>();
-        
-        // Inicializamos las vidas con 5.
-        iVidas = 5;
-        
         // Inicializamos el contador de las colisiones de los malos.
         iContColisionMalo = 0;
-       
-        // Inicializamos los puntos en 0.
-        iPuntos = 0;
-        
-        // Inicializamos pausa.
-        bPausa = false;
+        iVidas = 5;         // Inicializamos las vidas con 5.
+        iPuntos = 0;        // Inicializamos los puntos en 0.
+        bPausa = false;     // Inicializamos el booleano de pausa.
         
         // Añadir KeyListener para el uso del teclado.
         addKeyListener(this);
 
+        // Inicializamos otras partes del juego.
         inicializoPrincipal();      // Inicialización del principal
         inicializoMalos();          // Inicialización de los malos
         inicializoSonidos();        // Inicialización de los sonidos
         inicializoImagenes();       // Inicialización de las imagenes
         
+        lklBalas= new LinkedList<Bala>();   // Creo la lista de las Balas 
         Thread th = new Thread (this);      // Declaración de un hilo
         th.start ();                        // Empieza el hilo
     }
@@ -121,7 +116,6 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         //URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
         //sonidoDispara = Applet.newAudioClip(eaURL);
         
-        
         // Creo el sonido de vida menos.
         URL eaURL3 = Contraatacando.class.getResource("pain.wav");
         sonidoVida = Applet.newAudioClip(eaURL3);
@@ -130,8 +124,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * inicializoPrincipal
      * 
-     * Metodo que inicializa a Principal
-     * 
+     * Método que inicializa al Principal.
      */
     public void inicializoPrincipal() {
         // Defino la imagen de principal.
@@ -149,26 +142,25 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * inicializoMalos
      * 
-     * Metodo que inicializa a todos los malos
-     * 
+     * Método que inicializa a la lista de malos.
      */
     public void inicializoMalos() {
-        /* creo la lista de los malos */
+        // Creo la lista de los malos.
         lklMalos = new LinkedList<Malo>();
         
-        // Defino la de los malos.
+        // Defino la imagen de los malos.
 	URL urlImagenMalos = this.getClass().getResource("malo.png");
         
-        // Creo a los malos
+        // Creo a los malos.
         for(int iI = 0; iI < 10; iI++){
-            // Creo a un malo
+            // Creo a un malo.
             Malo mloMalo = new Malo (0, 0, 
                 Toolkit.getDefaultToolkit().getImage(urlImagenMalos));
-            // Añado al malo a la lista
+            // Añado al malo a la lista.
             lklMalos.add(mloMalo);
         }
         
-        // Posiciono a los malos
+        // Posiciono a los malos.
         for (Malo mloMalo : lklMalos){
             mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
             mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
@@ -180,8 +172,12 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        // Creo un juego nuevo.
         Contraatacando jfrmJuego = new Contraatacando();
+        // Ajusto el tamaño de la pantalla.
         jfrmJuego.setSize(WIDTH,HEIGHT);
+        
         jfrmJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfrmJuego.setVisible(true);
     }
@@ -189,20 +185,19 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * run
      * 
-     * Metodo sobrescrito de la clase <code>Thread</code>.<P>
-     * En este metodo se ejecuta el hilo, que contendrá las instrucciones
+     * Método sobrescrito de la clase <code>Thread</code>.<P>
+     * En este método se ejecuta el hilo, que contendrá las instrucciones
      * de nuestro juego.
-     * 
      */
     public void run() {
-        /* mientras dure el juego, se actualizan posiciones de jugadores
+        /* mientras dure el juego, se actualizan posiciones de jugadores,
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
-        while (iVidas > 0) {
-            if (!bPausa){
-                actualiza();
-                checaColision();
+        while (iVidas > 0) {            // Si el principal tiene vidas
+            if (!bPausa){               // Y el juego no está en pausa
+                actualiza();            // Se actualizan los personajes
+                checaColision();        // Se checan las colisiones
             } 
             repaint();
             try	{
@@ -219,12 +214,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * actualiza
      * 
-     * Metodo que actualiza la posicion de los objetos 
-     * 
+     * Método que actualiza la posición de los objetos.
      */
     public void actualiza(){
-
-        // Mueve a principal dependiendo de la dirección
+        // Movimiento del principal dependiendo de la dirección.
         switch (iDireccion) {
             case 1:
                 basPrincipal.setX(basPrincipal.getX() - 3);
@@ -235,23 +228,23 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             default:
                 break;
         }
-        
-        actualizaMalosyBalas(); // actualizamos a los malos y las balas
+        actualizaMalosyBalas(); // Actualiza a los malos y las balas
     }
     
     /** 
      * actualizaMalosyBalas
      * 
-     * Metodo que actualiza la posicion de los buenos y malos 
-     * 
+     * Método que actualiza la posición de los malos y la de las balas. 
      */
     public void actualizaMalosyBalas() {
+        // Ciclo para actualizar a cada malo de la lista.
         for (Malo mloMalo : lklMalos){
-            // Se actualiza la posicion del malo
+            // Se actualiza la posicion del malo.
             mloMalo.avanza(); 
         }
+        // Ciclo para actualizar a cada bala de la lista.
         for (Bala blaBala : lklBalas){
-            // Se actualiza la posicion del malo
+            // Se actualiza la posicion de la bala.
             blaBala.avanza(); 
         }
     }
@@ -259,15 +252,14 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * checaColision
      * 
-     * Metodo usado para checar la colision entre objetos.
-     * 
+     * Método usado para checar la colisión entre objetos.
      */
     public void checaColision(){
-        
-        // Checa que el principal no salga del marco
+        // Checa que el principal no pase el borde izquierdo.
         if (basPrincipal.getX() <= 0) {
             basPrincipal.setX(0);
         } 
+        // Checa que el principal no pase el borde derecho.
         if (basPrincipal.getX() + basPrincipal.getAncho() >= getWidth() ) {
             basPrincipal.setX(getWidth() - basPrincipal.getAncho());
         }
