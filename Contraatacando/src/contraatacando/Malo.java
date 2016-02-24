@@ -18,11 +18,14 @@ public class Malo extends Base{
     
     public Malo(int iX, int iY, Image imaImagen) {
         super(iX, iY, imaImagen);
+        this.bMalote = false;
+        this.iVel = 1;
     }
     
     public Malo(int iX, int iY, Image imaImagen, boolean bMalote) {
         super(iX, iY, imaImagen);
         this.bMalote = bMalote;
+        this.iVel = 1;
     }
     
     /**
@@ -56,7 +59,7 @@ public class Malo extends Base{
         if (this.bMalote) {
             
         } else {
-            this.setY(this.getY() - this.iVel);
+            this.setY(this.getY() + this.iVel);
         }
         
     }

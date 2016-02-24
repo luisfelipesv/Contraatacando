@@ -60,6 +60,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     
     public Contraatacando(){
         
+        /* creo la lista de las Balas */
+        lklBalas= new LinkedList<Bala>();
+        
         // Inicializamos las vidas con 5.
         iVidas = 5;
         
@@ -115,13 +118,13 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         sonidoCatch = Applet.newAudioClip(eaURL);
         
         // Creo el sonido de colisión al disparar una bala.
-        URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
-        sonidoDispara = Applet.newAudioClip(eaURL);
+        //URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
+        //sonidoDispara = Applet.newAudioClip(eaURL);
         
         
         // Creo el sonido de vida menos.
         URL eaURL3 = Contraatacando.class.getResource("pain.wav");
-        sonidoVida = Applet.newAudioClip(eaURL2);
+        sonidoVida = Applet.newAudioClip(eaURL3);
     }
     
     /** 
@@ -282,10 +285,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void checaColisionMalos(){
         for (Malo mloMalo : lklMalos) {
             // Checa si algun malo llego hasta el lado izquierdo
-            if (mloMalo.getX() <= 0) {
+            if (mloMalo.getY() >= getHeight()) {
                 // Se reposiciona malo
-                mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
                 mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
+                mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
             }
 
             // Checar si malo colisiona con el principal
