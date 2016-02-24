@@ -24,78 +24,73 @@ import javax.swing.JFrame;
  */
 public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
-    private static final int WIDTH = 1100;    //Ancho del JFrame
-    private static final int HEIGHT = 650;    //Alto del JFrame
+    private static final int WIDTH = 1100;  // Ancho del JFrame
+    private static final int HEIGHT = 650;  // Alto del JFrame
     
     private Base basPrincipal;              // Objeto principal
-    /* lista de los malos */
-    private LinkedList<Base> lklMalos; 
-    int iRanMalos;
-    private Image imaImagenFondo;           // para dibujar la imagen de fondo
+    private LinkedList<Base> lklMalos;      // Lista de los malos
+    int iRanMalos;                          // Cantidad de malos (random)
+    private Image imaImagenFondo;           // Imagen de fondo
    
     /* objetos para manejar el buffer y que la imagen no parpadee */
-    private Image    imaImagenApplet;       // Imagen a proyectar en Applet	
+    private Image imaImagenApplet;          // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;      // Objeto grafico de la Imagen
-    private AudioClip sonidoCatch;          // Sonido de colision de buenos
-    private AudioClip sonidoPain;           // Sonido de colision con malos
+    private AudioClip sonidoCatch;          // Sonido de colisión de buenos
+    private AudioClip sonidoVida;           // Sonido de colisión con malos
+    private AudioClip sonidoDispara;        // Sonido al disparar una bala
     
     /* variables para controlar movimiento */
-    private int iDireccion;                 // Direccion de principal
+    private int iDireccion;                 // Dirección del personaje principal
     
     /* variable e imagen para el control de vidas */
-    private int iVidas;
-    private int iContColisionMalo;
-    private Image imaGameOver;
+    private int iVidas;                     // Cantidad de vidas
+    private int iContColisionMalo;          // Cantidad de malos colisionados
+    private Image imaGameOver;              // Imagen fondo terminado el juego
     
     /* variable para el control de puntos */
-    private int iPuntos;
+    private int iPuntos;                    // Cantidad de puntos acumulados
     
     /* variables para el control de pausa */
-    private boolean bPausa;
-    private Image imaPausa;
+    private boolean bPausa;                 // Booleano para pausar
+    private Image imaPausa;                 // Imagen al pausar
     
     public Contraatacando(){
         
-        // Inicializamos las vidas con 5
+        // Inicializamos las vidas con 5.
         iVidas = 5;
         
-        // Inicializamos el contador de las colisiones de los malos
+        // Inicializamos el contador de las colisiones de los malos.
         iContColisionMalo = 0;
        
-        // Inicializamos los puntos en 0
+        // Inicializamos los puntos en 0.
         iPuntos = 0;
         
-        // Inicializamos pausa
+        // Inicializamos pausa.
         bPausa = false;
         
-        // Añadir KeyListener 
+        // Añadir KeyListener para el uso del teclado.
         addKeyListener(this);
 
-        inicializoPrincipal(); // inicializo principal
+        inicializoPrincipal();      // Inicialización del principal
+        inicializoMalos();          // Inicialización de los malos
+        inicializoSonidos();        // Inicialización de los sonidos
+        inicializoImagenes();       // Inicialización de las imagenes
         
-        inicializoMalos(); // inicializo malos
-        
-        inicializoSonidos(); // inicializo sonidos
-        
-        inicializoImagenes(); // inicializo imagenes
-        
-        Thread th = new Thread (this); // Declaras un hilo
-        
-        th.start (); // Empieza el hilo
+        Thread th = new Thread (this);      // Declaración de un hilo
+        th.start ();                        // Empieza el hilo
     }
     
     /** 
      * inicializoImagenes
      * 
-     * Metodo que inicializa las imagenes de Fondo, Game Over y Pausa.
-     * 
+     * Método que inicializa las imágenes de Fondo, Game Over y Pausa.
      */
     public void inicializoImagenes() {
         // Creo la imagen de fondo.
         URL urlImagenFondo = this.getClass().getResource("fondo.jpg");
         imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
         
-        // Creo la imagen del Game Over,
+        // Creo la imagen del Game Over.
         URL urlImagenGameOver = this.getClass().getResource("GameOver.png");
         imaGameOver = Toolkit.getDefaultToolkit().getImage(urlImagenGameOver);
         
@@ -108,18 +103,21 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * inicializoSonidos
      * 
-     * Metodo que inicializa los sonidos
-     * 
+     * Método que inicializa los sonidos del juego.
      */
     public void inicializoSonidos() {
-        
-        // Creo el sonido de colision entre buenos y principal
+        // Creo el sonido de colisión entre la bala y el malo.
         URL eaURL = Contraatacando.class.getResource("catch.wav");
         sonidoCatch = Applet.newAudioClip(eaURL);
         
-        // Creo el sonido de vida menos
+        // Creo el sonido de colisión al disparar una bala.
+        URL eaURL = Contraatacando.class.getResource("dispara.wav");
+        sonidoDispara = Applet.newAudioClip(eaURL);
+        
+        
+        // Creo el sonido de vida menos.
         URL eaURL2 = Contraatacando.class.getResource("pain.wav");
-        sonidoPain = Applet.newAudioClip(eaURL2);
+        sonidoVida = Applet.newAudioClip(eaURL2);
     }
     
     /** 
@@ -300,7 +298,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                 if (iContColisionMalo == 5) {
                     iVidas--; // Quitamos una vida
                     iContColisionMalo = 0; // Se pone el contador  en 0
-                    sonidoPain.play();// Suena efecto cuando se pierde una vida
+                    sonidoVida.play();// Suena efecto cuando se pierde una vida
                 }
             }  
         }
