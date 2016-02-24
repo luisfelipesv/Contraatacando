@@ -96,7 +96,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
         
         // Creo la imagen del Game Over,
-        URL urlImagenGameOver = this.getClass().getResource("gameover.jpg");
+        URL urlImagenGameOver = this.getClass().getResource("GameOver.png");
         imaGameOver = Toolkit.getDefaultToolkit().getImage(urlImagenGameOver);
         
         // Creo la imagen de Pausa.
@@ -438,12 +438,6 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             iDireccion = 1;
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT){
             iDireccion = 2;
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
-            // Disparo hacia arriba
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
-            // Disparo a 45 grados a la izq
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
-            // Disparo a 45 grados a la der
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
             if (bPausa) {
                 bPausa = false;
@@ -457,6 +451,14 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void keyReleased(KeyEvent keyEvent) {
         // Se cambia la dirección de Principal a 0 para que no se mueva
         iDireccion = 0;
+        
+        if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
+            // Disparo hacia arriba             cTipo = a
+        } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
+            // Disparo a 45 grados a la izq     cTipo = i
+        } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
+            // Disparo a 45 grados a la der     cTipo = d
+        }
     }
     
     /**
