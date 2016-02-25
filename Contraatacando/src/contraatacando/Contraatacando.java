@@ -289,7 +289,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void checaColisionMalos(){
         for (Malo mloMalo : lklMalos) {
-            // Checa si algun malo llego hasta el lado izquierdo
+            // Checa si algun malo llego hasta el fondo
             if (mloMalo.getY() >= getHeight()) {
                 // Se reposiciona malo
                 mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
@@ -298,7 +298,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
             // Checar si malo colisiona con el principal
             if (basPrincipal.colisiona(mloMalo)){
-                iPuntos--;              // Bajamos un punto por la colisión
+                if (iPuntos > 0){
+                     iPuntos--; 
+                }
+                            // Bajamos un punto por la colisión
                 iContColisionMalo++;    // Sumar una colision al contador
                 
                 // Se reposiciona el malo
