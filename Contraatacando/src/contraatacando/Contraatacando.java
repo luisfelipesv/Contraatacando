@@ -130,7 +130,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         
         // Creo el sonido de colisión al disparar una bala.
         URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
-        sonidoDispara = Applet.newAudioClip(eaURL);
+        sonidoDispara = Applet.newAudioClip(eaURL2);
         
         // Creo el sonido de vida menos.
         URL eaURL3 = Contraatacando.class.getResource("pain.wav");
@@ -144,7 +144,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void inicializoPrincipal() {
         // Defino la imagen de principal.
-        URL urlImagenPrincipal = this.getClass().getResource("principal.png");
+        URL urlImagenPrincipal = this.getClass().getResource("pusheen.png");
         
         // Creo el objeto principal 
 	basPrincipal = new Base(0, 0, 
@@ -169,7 +169,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         int iRanMalote = (int) (Math.random() * iRanMalos);
                 
         // Defino la imagen de los malos.
-	URL urlImagenMalos = this.getClass().getResource("malo.png");
+	URL urlImagenMalos = this.getClass().getResource("dislike.png");
         
         // Creo a los malos.
         for(int iM = 0; iM < iRanMalos; iM++){
