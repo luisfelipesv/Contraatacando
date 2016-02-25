@@ -488,7 +488,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         
         // Dibujamos el texto con las vidas y el puntaje.
         graDibujo.setFont(new Font("Arial",Font.BOLD,25));
-        graDibujo.setColor(new Color(255, 255, 255));
+        graDibujo.setColor(new Color(41, 217, 218));
         graDibujo.drawString("Puntos: " + iPuntos , 30, 50);
     }
     
