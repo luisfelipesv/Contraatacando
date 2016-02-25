@@ -168,7 +168,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Creo la lista de los malos.
         lklMalos = new LinkedList<Malo>();
         
-        /* genero el random de los malos entre 10 y 15 */
+        // Genero el random de los malos entre 10 y 15.
         iRanMalos = (int) (Math.random() * 6) + 10;
         int iRanMalote = (int) (Math.random() * iRanMalos);
                 
@@ -180,13 +180,16 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             // Creo a un malo.
             Malo mloMalo = new Malo (0, 0, 
                 Toolkit.getDefaultToolkit().getImage(urlImagenMalos));
-            if (iM == iRanMalote){
+            if (iM == iRanMalote){          // Uno de los malos es especial
                 mloMalo.setMalote(true);
             }
             // Añado al malo a la lista.
             lklMalos.add(mloMalo);
         }
-        
+        posicionaMalos();                   // Posiociono a los malos.
+    }
+    
+    public void posicionaMalos() {
         // Posiciono a los malos.
         for (Malo mloMalo : lklMalos){
             mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
@@ -299,7 +302,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * checaColisionMalos
      * 
-     * Metodo usado para checar la colisión de los malos.
+     * Método usado para checar la colisión de los malos.
      */
     public void checaColisionMalos(){
         // Checar la colisión de cada malo con la pantalla.
@@ -310,6 +313,11 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         
     }
     
+    /**
+     * checaColisionMalos
+     * 
+     * Método usado para checar la colisión de los malos con la pantalla.
+     */
     public void checaColisionPantallaMalos() {
         for (Malo mloMalo : lklMalos) {
             // Checa si algún malo llega hasta el borde de abajo.
@@ -322,6 +330,11 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         }
     }
         
+    /**
+     * checaColisionMalos
+     * 
+     * Método usado para checar la colisión de los malos con el principal.
+     */
     public void checaColisionPrincipalMalos() {
         for (Malo mloMalo : lklMalos) {
             // Checar si malo colisiona con el principal.
@@ -360,8 +373,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             if (blaBala.getX() <= 0 || blaBala.getY() <= 0 || 
                     blaBala.getX() > (getWidth() - blaBala.getAncho())  ) {
                 lklBalas.remove(blaBala);           // Se elimina la bala.
-            } 
-            else {
+            } else {
                // Checar si el malo colisiona con alguna bala.
                 for (int iM = 0; iM < lklMalos.size(); iM++) {
                     Malo mloMalo = (Malo) lklMalos.get(iM);
@@ -392,6 +404,12 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         }
     }
     
+    /**
+     * disparaBala()
+     * 
+     * Método usado disparar cada bala, según su dirección.<P>
+     * Además emite un sonido.
+     */
     public void disparaBala() {
         // Disparo según la direccion del caracter.
             Bala blaBala = new Bala(basPrincipal.getX(), 
@@ -455,8 +473,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                 dibujarJuego(graDibujo);
                 dibujarVidas(graDibujo);
                 dibujarPausa(graDibujo);
-            } else {    // Si no se ha cargado
-                // Da un mensaje mientras se carga el dibujo	
+            } else {    // Si no se ha cargado, despliega un mensaje.	
                 graDibujo.drawString("No se cargo la imagen..", 20, 50);
             }
         } else {
