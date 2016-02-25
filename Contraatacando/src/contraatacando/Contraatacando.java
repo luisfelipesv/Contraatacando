@@ -319,7 +319,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     }
     
     /**
-     * checaColisionMalos
+     * checaColisionPantallaMalos
      * 
      * Método usado para checar la colisión de los malos con la pantalla.
      */
@@ -336,7 +336,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     }
         
     /**
-     * checaColisionMalos
+     * checaColisionPrincipalMalos
      * 
      * Método usado para checar la colisión de los malos con el principal.
      */
@@ -548,7 +548,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     }
     
     /**
-     * dibujarPausa
+     * dibujarVidas
      * 
      * Método donde se dibujan las vidas del juego.
      * 
