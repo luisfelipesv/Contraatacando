@@ -129,8 +129,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         sonidoCatch = Applet.newAudioClip(eaURL);
         
         // Creo el sonido de colisión al disparar una bala.
-        //URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
-        //sonidoDispara = Applet.newAudioClip(eaURL);
+        URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
+        sonidoDispara = Applet.newAudioClip(eaURL);
         
         // Creo el sonido de vida menos.
         URL eaURL3 = Contraatacando.class.getResource("pain.wav");
@@ -289,6 +289,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         
         // Llamamos a la funcion para checar las colisiones de los malos
         checaColisionMalos();
+        checaColisionBalas();
     }
     
     /**
@@ -364,6 +365,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                         lklBalas.remove(blaBala);   // Se elimina la bala.
                         lklMalos.remove(mloMalo);   // Se elimina el malo.
                         iPuntos += 10;              // Se suman 10 puntos.
+                        sonidoCatch.play();         // Emite el sonido.
                     }
                 } 
             }
@@ -551,16 +553,22 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             Bala blaBala = new Bala(basPrincipal.getX(), 
                     basPrincipal.getY(), imaBala, ' ');
             lklBalas.add(blaBala);
+            // Emitir sonido de disparo.
+            sonidoDispara.play();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
             // Disparo a 45 grados a la izq     cTipo = i
             Bala blaBala = new Bala(basPrincipal.getX(), 
                     basPrincipal.getY(), imaBala, 'a');
             lklBalas.add(blaBala);
+            // Emitir sonido de disparo.
+            sonidoDispara.play();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
             // Disparo a 45 grados a la der     cTipo = d
             Bala blaBala = new Bala(basPrincipal.getX(), 
                     basPrincipal.getY(), imaBala, 's');
             lklBalas.add(blaBala);
+            // Emitir sonido de disparo.
+            sonidoDispara.play();
         }
     }
     
