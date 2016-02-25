@@ -299,11 +299,27 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                 
                 // Checamos si ya van 5 colisiones
                 if (iContColisionMalo == 5) {
+                    aumentarVelocidad();
                     iVidas--; // Quitamos una vida
                     iContColisionMalo = 0; // Se pone el contador  en 0
                     sonidoVida.play();// Suena efecto cuando se pierde una vida
+                    
                 }
             }  
+        }
+        
+    }
+    
+    /**
+     * aumentarVelocidad
+     * 
+     * Metodo usado para aumentar la velocidad de todos los malos.
+     * 
+     */
+    public void aumentarVelocidad(){
+        for (Malo mloMalo : lklMalos) {
+            int iV = mloMalo.getVel();
+            mloMalo.setVel(++iV);
         }
     }
     
