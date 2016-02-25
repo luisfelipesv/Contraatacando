@@ -25,8 +25,8 @@ import javax.swing.JFrame;
  *
  * @authores luisfelipesv y melytc
  * 
- * Luis Felipe Salazar A00817158
- * Melissa Janet Treviño A00816715
+ * Luis Felipe Salazar      A00817158
+ * Melissa Janet Treviño    A00816715
  * 
  * 24/FEB/16
  * @version 1.0
@@ -189,6 +189,11 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         posicionaMalos();                   // Posiociono a los malos.
     }
     
+    /** 
+     * posicionaMalos
+     * 
+     * Método que posiciona a cada malo en la lista.
+     */
     public void posicionaMalos() {
         // Posiciono a los malos.
         for (Malo mloMalo : lklMalos){
