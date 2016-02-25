@@ -367,9 +367,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                     if (blaBala.colisiona(mloMalo)){
                         lklBalas.remove(blaBala);   // Se elimina la bala.
                         // Se reposiciona malo en la parte superior.
-                        mloMalo.setX((int)(Math.random()*(getWidth() - 
-                        mloMalo.getAncho())));
-                        mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
+                        mloMalo.setX((int)(Math.random() * (getWidth() - 
+                                mloMalo.getAncho())));
+                        mloMalo.setY(-mloMalo.getAlto() - 20);
                         iPuntos += 10;              // Se suman 10 puntos.
                         sonidoCatch.play();         // Emite el sonido.
                     }
