@@ -125,15 +125,15 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void inicializoSonidos() {
         // Creo el sonido de colisión entre la bala y el malo.
-        URL eaURL = Contraatacando.class.getResource("catch.wav");
+        URL eaURL = Contraatacando.class.getResource("pain.wav");
         sonidoCatch = Applet.newAudioClip(eaURL);
         
         // Creo el sonido de colisión al disparar una bala.
-        URL eaURL2 = Contraatacando.class.getResource("dispara.wav");
+        URL eaURL2 = Contraatacando.class.getResource("kiss.wav");
         sonidoDispara = Applet.newAudioClip(eaURL2);
         
         // Creo el sonido de vida menos.
-        URL eaURL3 = Contraatacando.class.getResource("pain.wav");
+        URL eaURL3 = Contraatacando.class.getResource("ghost.wav");
         sonidoVida = Applet.newAudioClip(eaURL3);
     }
     
