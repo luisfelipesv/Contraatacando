@@ -92,17 +92,14 @@ public class Malo extends Base {
     public void avanza(Base bP){
         if (this.bMalote) {
             if (bP.getX() > this.getX()){
-                this.setX(this.getX() + iVel);
+                this.setX(this.getX() + this.iVel);
             }
             if (bP.getX() < this.getX()) {
-                this.setX(this.getX() - iVel);
+                this.setX(this.getX() - this.iVel);
             }
             if (bP.getY() > this.getY()){
-                this.setY(this.getY() + iVel);
+                this.setY(this.getY() + this.iVel);
             } 
-            if (bP.getY() < this.getY()) {
-                this.setY(this.getY() + -iVel);
-            }
         } else {
             this.setY(this.getY() + this.iVel);
         }

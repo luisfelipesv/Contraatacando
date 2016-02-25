@@ -556,6 +556,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void keyReleased(KeyEvent keyEvent) {
         // Se cambia la dirección de Principal a 0 para que no se mueva.
         iDireccion = 0;
+<<<<<<< Updated upstream
         
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
             // Disparo hacia arriba             cTipo = ' '
@@ -580,10 +581,36 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             sonidoDispara.play();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
             if (iVidas == 0) {
+=======
+        if (!bPausa){
+            if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
+                // Disparo hacia arriba             
+                Bala blaBala = new Bala(basPrincipal.getX(), 
+                        basPrincipal.getY(), imaBala, ' ');
+                lklBalas.add(blaBala);
+                // Emitir sonido de disparo.
+                sonidoDispara.play();
+            } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
+                // Disparo a 45 grados a la izq     
+                Bala blaBala = new Bala(basPrincipal.getX(), 
+                        basPrincipal.getY(), imaBala, 'a');
+                lklBalas.add(blaBala);
+                // Emitir sonido de disparo.
+                sonidoDispara.play();
+            } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
+                // Disparo a 45 grados a la der    
+                Bala blaBala = new Bala(basPrincipal.getX(), 
+                        basPrincipal.getY(), imaBala, 's');
+                lklBalas.add(blaBala);
+                // Emitir sonido de disparo.
+                sonidoDispara.play();
+            } else if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
+>>>>>>> Stashed changes
                 // Se reinicia el juego.
                 reinicia();
             }
         }
+        
     }
     
     public void reinicia() {
