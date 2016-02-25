@@ -63,6 +63,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     private boolean bPausa;                 // Booleano para pausar
     private Image imaPausa;                 // Imagen al pausar
     
+    /* variable para la bala */
+    private Image imaBala;
+    
     public Contraatacando(){
         // Inicializamos el contador de las colisiones de los malos.
         iContColisionMalo = 0;
@@ -105,6 +108,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Creo la imagen de las vidas.
         URL urlImagenVida = this.getClass().getResource("vidaB.png");
         imaVida = Toolkit.getDefaultToolkit().getImage(urlImagenVida);
+        
+        // Creo la imagen de las balas
+        URL urlImagenBala = this.getClass().getResource("vidaR.png");
+        imaBala= Toolkit.getDefaultToolkit().getImage(urlImagenBala);
         
     }
     
@@ -450,9 +457,13 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         //Dibuja la imagen de principal en el Applet.
         basPrincipal.paint(graDibujo, this);
         
-        // Dibujo a cada malo.
-        for (Base basMalo : lklMalos){
-            basMalo.paint(graDibujo, this);
+        // Dibujo cada malo.
+        for (Malo mloMalo : lklMalos){
+            mloMalo.paint(graDibujo, this);
+        }
+        // Dibujo cada bala.
+        for (Bala blaBala : lklBalas){
+            blaBala.paint(graDibujo, this);
         }
         
         // Dibujamos el texto con las vidas y el puntaje.
@@ -525,11 +536,18 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         iDireccion = 0;
         
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
-            // Disparo hacia arriba             cTipo = a
+            // Disparo hacia arriba             cTipo = ' '
+            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, ' ');
+            lklBalas.add(blaBala);
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
             // Disparo a 45 grados a la izq     cTipo = i
+            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, 'a');
+            lklBalas.add(blaBala);
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
             // Disparo a 45 grados a la der     cTipo = d
+            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, 's');
+            lklBalas.add(blaBala);
+            
         }
     }
     

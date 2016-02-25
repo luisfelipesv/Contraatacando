@@ -28,10 +28,10 @@ public class Bala extends Base{
      * @param cTipo es la <code>dirección</code> de la bala.
      * @param iVel es la <code>velocidad</code> del objeto
      */
-    public Bala(int iX, int iY, Image imaImagen, char cTipo, int iVel) {
+    public Bala(int iX, int iY, Image imaImagen, char cTipo) {
         super(iX, iY, imaImagen);
         this.cTipo = cTipo;
-        this.iVel = iVel;
+        this.iVel = 1;
     }
     
     /**
@@ -50,12 +50,13 @@ public class Bala extends Base{
                 // Caso en que la bala vaya hacia la izquierda.
                 case 'a': {
                     this.setY(this.getY() - this.iVel);
+                    this.setX(this.getX() - this.iVel);
                     break;
                 }
                 // Caso en que la bala vaya hacia la derecha.
                 case 's': {
                     this.setY(this.getY() - this.iVel);
-                    this.setX(this.getX() - this.iVel);
+                    this.setX(this.getX() + this.iVel);
                     break;
                 }
         }
