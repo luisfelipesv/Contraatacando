@@ -51,13 +51,36 @@ public class Malo extends Base{
     }
     
     /**
+     * setMalote
+     * 
+     * Método modificador usado para cambiar la propiedad de malote.
+     * 
+     * @param bMalote nos dice si es un<code>malote</code> o un malo normal.
+     */
+    public void setMalote(boolean bMalote) {
+        this.bMalote = bMalote;
+    }
+    
+    /**
      * avanza
      * 
-     * Método que actualiza la posición del malo, según sea malote o no.
+     * Método que actualiza la posición del malo.
+     * 
      */
-    public void avanza(){
+    public void avanza(Base bP){
         if (this.bMalote) {
-            
+            if (bP.getX() > this.getX()){
+                this.setX(this.getX() + iVel);
+            }
+            if (bP.getX() < this.getX()) {
+                this.setX(this.getX() - iVel);
+            }
+            if (bP.getY() > this.getY()){
+                this.setY(this.getY() + iVel);
+            } 
+            if (bP.getY() < this.getY()) {
+                this.setY(this.getY() + -iVel);
+            }
         } else {
             this.setY(this.getY() + this.iVel);
         }

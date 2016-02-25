@@ -34,6 +34,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
     /* lista de los malos */
     private LinkedList<Malo> lklMalos; 
+    private int iRanMalos;
     /* lista de las balas */
     private LinkedList<Bala> lklBalas;
     private Image imaImagenFondo;           // para dibujar la imagen de fondo
@@ -153,14 +154,21 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Creo la lista de los malos.
         lklMalos = new LinkedList<Malo>();
         
+        /* genero el random de los malos entre 10 y 15 */
+        iRanMalos = (int) (Math.random() * 6) + 10;
+        int iRanMalote = (int) (Math.random() * iRanMalos);
+                
         // Defino la imagen de los malos.
 	URL urlImagenMalos = this.getClass().getResource("malo.png");
         
         // Creo a los malos.
-        for(int iI = 0; iI < 10; iI++){
+        for(int iI = 0; iI < iRanMalos; iI++){
             // Creo a un malo.
             Malo mloMalo = new Malo (0, 0, 
                 Toolkit.getDefaultToolkit().getImage(urlImagenMalos));
+            if (iI == iRanMalote){
+                mloMalo.setMalote(true);
+            }
             // Añado al malo a la lista.
             lklMalos.add(mloMalo);
         }
@@ -245,7 +253,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         // Ciclo para actualizar a cada malo de la lista.
         for (Malo mloMalo : lklMalos){
             // Se actualiza la posicion del malo.
-            mloMalo.avanza(); 
+            mloMalo.avanza(basPrincipal); 
         }
         // Ciclo para actualizar a cada bala de la lista.
         for (Bala blaBala : lklBalas){
