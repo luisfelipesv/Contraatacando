@@ -172,11 +172,11 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
 	URL urlImagenMalos = this.getClass().getResource("malo.png");
         
         // Creo a los malos.
-        for(int iI = 0; iI < iRanMalos; iI++){
+        for(int iM = 0; iM < iRanMalos; iM++){
             // Creo a un malo.
             Malo mloMalo = new Malo (0, 0, 
                 Toolkit.getDefaultToolkit().getImage(urlImagenMalos));
-            if (iI == iRanMalote){
+            if (iM == iRanMalote){
                 mloMalo.setMalote(true);
             }
             // Añado al malo a la lista.
@@ -343,6 +343,34 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     }
     
     /**
+     * checaColisionBalas
+     * 
+     * Método usado para checar la colisión de las balas.
+     */
+    public void checaColisionBalas(){
+        for (int iA = 0; iA < lklBalas.size() ; iA++) {
+            Bala blaBala = (Bala) lklBalas.get(iA);
+            
+            // Checa si alguna bala choca con la pantalla.
+            if (blaBala.getX() <= 0 || blaBala.getY() <= 0 || 
+                    blaBala.getX() > (getWidth() - blaBala.getAncho())  ) {
+                lklBalas.remove(blaBala);           // Se elimina la bala.
+            } 
+            else {
+               // Checar si el malo colisiona con alguna bala.
+                for (int iM = 0; iM < lklMalos.size(); iM++) {
+                    Malo mloMalo = (Malo) lklMalos.get(iM);
+                    if (blaBala.colisiona(mloMalo)){
+                        lklBalas.remove(blaBala);   // Se elimina la bala.
+                        lklMalos.remove(mloMalo);   // Se elimina el malo.
+                        iPuntos += 10;              // Se suman 10 puntos.
+                    }
+                } 
+            }
+        }
+    }
+        
+    /**
      * aumentarVelocidad
      * 
      * Método usado para aumentar la velocidad de todos los malos.
@@ -352,30 +380,6 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         for (Malo mloMalo : lklMalos) {
             int iV = mloMalo.getVel();
             mloMalo.setVel(++iV);
-        }
-    }
-    
-    /**
-     * checaColisionBalas
-     * 
-     * Método usado para checar la colisión de las balas.
-     */
-    public void checaColisionBalas(){
-        for (Bala blaBala : lklBalas) {
-            // Checa si alguna bala choca con la pantalla.
-            if (blaBala.getX() <= 0 || blaBala.getY() <= 0 || 
-                    blaBala.getX() > (getWidth() - blaBala.getAncho())  ) {
-                lklBalas.remove(blaBala);           // Se elimina la bala.
-            } else {
-               // Checar si el malo colisiona con alguna bala.
-                for (Malo mloMalo : lklMalos) {
-                    if (blaBala.colisiona(mloMalo)){
-                        lklBalas.remove(blaBala);   // Se elimina la bala.
-                        lklMalos.remove(mloMalo);   // Se elimina el malo.
-                        iPuntos += 10;              // Se suman 10 puntos.
-                    }
-                } 
-            }
         }
     }
     

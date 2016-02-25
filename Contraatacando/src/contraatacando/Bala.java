@@ -26,9 +26,9 @@ public class Bala extends Base {
      * @param iY es la <code>posición en y</code> del objeto
      * @param imaImagen es la <code>imagen</code> del objeto.
      * @param cTipo es la <code>dirección</code> de la bala.
-     * @param iVel es la <code>velocidad</code> del objeto
+     * iVel es la <code>velocidad</code> del objeto
      */
-    public Bala(int iX, int iY, Image imaImagen, char cTipo, int iVel) {
+    public Bala(int iX, int iY, Image imaImagen, char cTipo) {
         super(iX, iY, imaImagen);
         this.cTipo = cTipo;
         this.iVel = 1;
