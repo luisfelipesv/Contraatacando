@@ -148,7 +148,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /** 
      * inicializoMalos
      * 
-     * Método que inicializa a la lista de malos.
+     * Método que inicializa la lista de malos.
      */
     public void inicializoMalos() {
         // Creo la lista de los malos.
@@ -203,7 +203,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * de nuestro juego.
      */
     public void run() {
-        /* mientras dure el juego, se actualizan posiciones de jugadores,
+        /* Mientras dure el juego, se actualizan posiciones de jugadores,
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
@@ -232,16 +232,16 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void actualiza(){
         // Movimiento del principal dependiendo de la dirección.
         switch (iDireccion) {
-            case 1:
+            case 1:         // Movimiento a la izquierda.
                 basPrincipal.setX(basPrincipal.getX() - 3);
                 break;
-            case 2:
+            case 2:         // Movimiento a la derecha.
                 basPrincipal.setX(basPrincipal.getX() + 3);
                 break;
             default:
                 break;
         }
-        actualizaMalosyBalas(); // Actualiza a los malos y las balas
+        actualizaMalosyBalas(); // Actualiza a los malos y las balas.
     }
     
     /** 
@@ -284,50 +284,61 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * checaColisionMalos
      * 
-     * Metodo usado para checar la colision de los malos.
-     * 
+     * Metodo usado para checar la colisión de los malos.
      */
     public void checaColisionMalos(){
+        // Checar la colisión de cada malo con la pantalla.
+        checaColisionPantallaMalos();
+        
+        // Checar la colisión de cada malo con el principal.
+        checaColisionPrincipalMalos();
+        
+    }
+    
+    public void checaColisionPantallaMalos() {
         for (Malo mloMalo : lklMalos) {
-            // Checa si algun malo llego hasta el fondo
+            // Checa si algún malo llega hasta el borde de abajo.
             if (mloMalo.getY() >= getHeight()) {
-                // Se reposiciona malo
-                mloMalo.setX((int)(Math.random()*(getWidth()- mloMalo.getAncho())));
+                // Se reposiciona malo en la parte superior de la pantalla.
+                mloMalo.setX((int)(Math.random()*(getWidth() - 
+                        mloMalo.getAncho())));
                 mloMalo.setY((int)(Math.random()*(-getHeight() * 2)));
             }
-
-            // Checar si malo colisiona con el principal
+        }
+    }
+        
+    public void checaColisionPrincipalMalos() {
+        for (Malo mloMalo : lklMalos) {
+            // Checar si malo colisiona con el principal.
             if (basPrincipal.colisiona(mloMalo)){
                 if (iPuntos > 0){
-                     iPuntos--; 
-                }
-                            // Bajamos un punto por la colisión
-                iContColisionMalo++;    // Sumar una colision al contador
+                     iPuntos--;         // Bajamos un punto por la colisión.
+                }     
+                iContColisionMalo++;    // Sumar una colisión al contador.
                 
                 // Se reposiciona el malo
-                mloMalo.setX((int)(Math.random()*(getWidth() * 2) + getWidth()));
-                mloMalo.setY((int)(Math.random()*(getHeight()-mloMalo.getAlto())));
-                
+                mloMalo.setX((int)(Math.random() * (getWidth() * 2) 
+                        + getWidth()));
+                mloMalo.setY((int)(Math.random() * (getHeight() 
+                        - mloMalo.getAlto())));
                 // Checamos si ya van 5 colisiones
-                if (iContColisionMalo == 5) {
-                    aumentarVelocidad();
-                    iVidas--; // Quitamos una vida
-                    iContColisionMalo = 0; // Se pone el contador  en 0
-                    sonidoVida.play();// Suena efecto cuando se pierde una vida
-                    
+                if (iContColisionMalo == 5) { 
+                    aumentarVelocidad();        // Aumentamos la velocidad
+                    iVidas--;                   // Quitamos una vida
+                    iContColisionMalo = 0;      // Se pone el contador  en 0
+                    sonidoVida.play();          // Sonido al perder una vida
                 }
             }  
         }
-        
     }
     
     /**
      * aumentarVelocidad
      * 
-     * Metodo usado para aumentar la velocidad de todos los malos.
-     * 
+     * Método usado para aumentar la velocidad de todos los malos.
      */
     public void aumentarVelocidad(){
+        // Ciclo para aumentar la velocidad para cada malo.
         for (Malo mloMalo : lklMalos) {
             int iV = mloMalo.getVel();
             mloMalo.setVel(++iV);
@@ -337,40 +348,36 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * checaColisionBalas
      * 
-     * Metodo usado para checar la colision de las balas.
-     * 
+     * Método usado para checar la colisión de las balas.
      */
     public void checaColisionBalas(){
         for (Bala blaBala : lklBalas) {
-            // Checa si algun malo choco con la ventana
+            // Checa si alguna bala choca con la pantalla.
             if (blaBala.getX() <= 0 || blaBala.getY() <= 0 || 
                     blaBala.getX() > (getWidth() - blaBala.getAncho())  ) {
-                // Se elimina la bala
-                
+                lklBalas.remove(blaBala);           // Se elimina la bala.
             } else {
-               // Checar si malo colisiona con algun malo
+               // Checar si el malo colisiona con alguna bala.
                 for (Malo mloMalo : lklMalos) {
                     if (blaBala.colisiona(mloMalo)){
-                        // Desaparecemos la bala y al malo
-                        // Sumamos 10 puntos
+                        lklBalas.remove(blaBala);   // Se elimina la bala.
+                        lklMalos.remove(mloMalo);   // Se elimina el malo.
+                        iPuntos += 10;              // Se suman 10 puntos.
                     }
                 } 
             }
-
-            
         }
     }
     
     /**
      * paint
      * 
-     * Metodo sobrescrito de la clase <code>JFrame</code>,
+     * Método sobrescrito de la clase <code>JFrame</code>,
      * heredado de la clase Window.<P>
-     * En este metodo lo que hace es actualizar la ventana y 
-     * define cuando usar ahora el paint1
+     * En este método lo que hace es actualizar la ventana y 
+     * define cuando usar ahora el paint1.
      * 
-     * @param graGrafico es el <code>objeto grafico</code> usado para dibujar.
-     * 
+     * @param graGrafico es el <code>objeto gráfico</code> usado para dibujar.
      */
     public void paint (Graphics graGrafico){
         // Inicializan el DoubleBuffer
@@ -382,8 +389,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
         // Actualiza la imagen de fondo.
         URL urlImagenFondo = this.getClass().getResource("fondo.jpg");
-        Image imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
-        graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), getHeight(), this);
+        Image imaImagenFondo = Toolkit.getDefaultToolkit()
+                .getImage(urlImagenFondo);
+        graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), 
+                getHeight(), this);
 
         // Actualiza el Foreground.
         graGraficaApplet.setColor (getForeground());
@@ -396,34 +405,31 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * paint1
      * 
-     * Metodo sobrescrito de la clase <code>Applet</code>,
+     * Método sobrescrito de la clase <code>Applet</code>,
      * heredado de la clase Container.<P>
-     * En este metodo se dibuja la imagen con la posicion actualizada,
-     * ademas que cuando la imagen es cargada te despliega una advertencia.
+     * En este método se dibuja la imagen con la posición actualizada,
+     * además que cuando la imagen es cargada te despliega una advertencia.
      * 
      * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
-     * 
      */
     public void paint1(Graphics graDibujo) {
         if (iVidas > 0) {
-            // si la imagen ya se cargo
+            // Si la imagen ya se cargo
             if (basPrincipal != null && imaImagenFondo != null && 
                     lklMalos != null && imaVida != null && imaPausa != null) {
-                // llamamos funcion que dibuja el juego
+                // Llamamos función que dibuja el juego.
                 dibujarJuego(graDibujo);
                 dibujarVidas(graDibujo);
                 dibujarPausa(graDibujo);
-            } // si no se ha cargado se dibuja un mensaje 
-            else {
+            } else {    // Si no se ha cargado
                 // Da un mensaje mientras se carga el dibujo	
                 graDibujo.drawString("No se cargo la imagen..", 20, 50);
             }
-            
-            
         } else {
-            // dibujo la imagen de fin de juego
-            graDibujo.drawImage(imaGameOver, 0, 0, getWidth(), getHeight(), this);
-            // muestra puntaje	
+            // Dibujo la imagen de fin de juego.
+            graDibujo.drawImage(imaGameOver, 0, 0, getWidth(), getHeight(), 
+                    this);
+            // Muestro el puntaje.
             graDibujo.setFont(new Font("Arial",Font.BOLD,20));
             graDibujo.setColor(Color.white);
             graDibujo.drawString("Puntaje final: " + iPuntos, 30, 50);
@@ -433,21 +439,23 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * dibujarJuego
      * 
-     * En este metodo se dibuja la imagen del juego.
+     * Método donde se dibuja la imagen del juego.
      * 
      * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
-     * 
      */
     public void dibujarJuego(Graphics graDibujo){
-        // Dibuja la imagen de fondo
+        // Dibuja la imagen de fondo.
         graDibujo.drawImage(imaImagenFondo, 0, 0, getWidth(),getHeight(), this);
-        //Dibuja la imagen de principal en el Applet
+        
+        //Dibuja la imagen de principal en el Applet.
         basPrincipal.paint(graDibujo, this);
-        // Dibujo al malo
+        
+        // Dibujo a cada malo.
         for (Base basMalo : lklMalos){
             basMalo.paint(graDibujo, this);
         }
-        // Dibujamos el texto con las vidas y el puntaje
+        
+        // Dibujamos el texto con las vidas y el puntaje.
         graDibujo.setFont(new Font("Arial",Font.BOLD,25));
         graDibujo.setColor(new Color(255, 255, 255));
         graDibujo.drawString("Puntos: " + iPuntos , 30, 50);
@@ -456,34 +464,33 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * dibujarPausa
      * 
-     * En este metodo se dibuja la pausa del juego.
+     * Método donde se dibuja la pausa del juego.
      * 
      * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
-     * 
      */
     public void dibujarPausa(Graphics graDibujo){
-        
+        // Si el booleano está encendido.
         if (bPausa){
             // Dibuja la imagen de fondo
             graDibujo.drawImage(imaPausa, 0, 0, getWidth(),getHeight(), this);
+            
             // Dibujamos el texto con las vidas y el puntaje
             graDibujo.setFont(new Font("Arial",Font.BOLD,25));
             graDibujo.setColor(new Color(255, 255, 255));
             graDibujo.drawString("Presiona la tecla P para salir de Pausa", 
                 getWidth()/2 - 220, getHeight()/4);      
         }
-        
     }
     
     /**
      * dibujarPausa
      * 
-     * En este metodo se dibuja la pausa del juego.
+     * Método donde se dibujan las vidas del juego.
      * 
      * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
-     * 
      */
     public void dibujarVidas(Graphics graDibujo){
+        // Ciclo para dibujar cada vida en la pantalla con la imagen.
         for (int iV = 0; iV < iVidas; iV++){
             graDibujo.drawImage(imaVida, getWidth()- 40 - (32 * iV), 30, this);
         }
@@ -514,7 +521,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        // Se cambia la dirección de Principal a 0 para que no se mueva
+        // Se cambia la dirección de Principal a 0 para que no se mueva.
         iDireccion = 0;
         
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
