@@ -9,9 +9,9 @@ import java.awt.Image;
 
 /**
  *
- * @author luisfelipesv
+ * @author luisfelipesv y melytc
  */
-public class Bala extends Base{    
+public class Bala extends Base {    
     
     char cTipo;     // Reconocedor de directtion de la bala.
     int iVel;       // Variable para controlar la velocidad de la bala.
@@ -28,7 +28,7 @@ public class Bala extends Base{
      * @param cTipo es la <code>dirección</code> de la bala.
      * @param iVel es la <code>velocidad</code> del objeto
      */
-    public Bala(int iX, int iY, Image imaImagen, char cTipo) {
+    public Bala(int iX, int iY, Image imaImagen, char cTipo, int iVel) {
         super(iX, iY, imaImagen);
         this.cTipo = cTipo;
         this.iVel = 1;
@@ -60,5 +60,23 @@ public class Bala extends Base{
                     break;
                 }
         }
+    }
+    
+    /**
+     * Método de acceso que regresa el tipo de Bala.
+     * 
+     * @return cTipo es el <code>tipo</code> de bala.
+     */
+    public char getTipo() {
+        return cTipo;
+    }
+    
+    /**
+     * Método de acceso que regresa la velocidad de la bala.
+     * 
+     * @return iVel es la <code>velocidad</code> de la bala.
+     */
+    public int getVel() {
+        return iVel;
     }
 }

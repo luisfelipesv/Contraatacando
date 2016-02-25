@@ -4,9 +4,9 @@ package contraatacando;
  *
  * Modela la definición de todos los objetos de tipo <code>Base</code>.
  *
- * @author Luis Felipe Salazar
+ * @author Luis Felipe Salazar y Melissa Treviño
  * @version 1.0
- * @date 10/Feb/16
+ * @date 23/Feb/16
  */
 import java.awt.Graphics;
 import java.awt.Image;

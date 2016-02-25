@@ -25,7 +25,7 @@ import javax.swing.JFrame;
  * Luis Felipe Salazar A00817158
  * Melissa Janet Treviño A00816715
  * 
- * 24/2/16
+ * 24/FEB/16
  * @version 1.0
  */
 public class Contraatacando extends JFrame implements Runnable, KeyListener {
