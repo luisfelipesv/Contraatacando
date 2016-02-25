@@ -70,7 +70,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     private Image imaPausa;                 // Imagen al pausar
     
     /* variable para la bala */
-    private Image imaBala;
+    private Image imaBala;                  // Imagen de la bala.
+    private char cDireccion;                // Char para el manejo de dirección.
     
     public Contraatacando(){
         // Inicializamos el contador de las colisiones de los malos.
@@ -391,6 +392,16 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         }
     }
     
+    public void disparaBala() {
+        // Disparo según la direccion del caracter.
+            Bala blaBala = new Bala(basPrincipal.getX(), 
+                    basPrincipal.getY(), imaBala, cDireccion);
+            lklBalas.add(blaBala);
+            
+            // Emitir sonido de disparo.
+            sonidoDispara.play();
+    }
+    
     /**
      * paint
      * 
@@ -530,8 +541,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     }
     
     @Override
-    public void keyTyped(KeyEvent keyEvent) {
-        
+    public void keyTyped(KeyEvent keyEvent) {   
     }
 
     @Override
@@ -556,28 +566,16 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void keyReleased(KeyEvent keyEvent) {
         // Se cambia la dirección de Principal a 0 para que no se mueva.
         iDireccion = 0;
-        
+        // Según la dirección se dispara la bala.
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
-            // Disparo hacia arriba             cTipo = ' '
-            Bala blaBala = new Bala(basPrincipal.getX(), 
-                    basPrincipal.getY(), imaBala, ' ');
-            lklBalas.add(blaBala);
-            // Emitir sonido de disparo.
-            sonidoDispara.play();
+            cDireccion = ' ';
+            disparaBala();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
-            // Disparo a 45 grados a la izq     cTipo = i
-            Bala blaBala = new Bala(basPrincipal.getX(), 
-                    basPrincipal.getY(), imaBala, 'a');
-            lklBalas.add(blaBala);
-            // Emitir sonido de disparo.
-            sonidoDispara.play();
+            cDireccion = 'a';
+            disparaBala();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
-            // Disparo a 45 grados a la der     cTipo = d
-            Bala blaBala = new Bala(basPrincipal.getX(), 
-                    basPrincipal.getY(), imaBala, 's');
-            lklBalas.add(blaBala);
-            // Emitir sonido de disparo.
-            sonidoDispara.play();
+            cDireccion = 's';
+            disparaBala();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
             if (iVidas == 0) {
                 // Se reinicia el juego.
