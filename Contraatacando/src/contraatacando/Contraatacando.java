@@ -579,8 +579,10 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             // Emitir sonido de disparo.
             sonidoDispara.play();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
-            // Se reinicia el juego.
-            reinicia();
+            if (iVidas == 0) {
+                // Se reinicia el juego.
+                reinicia();
+            }
         }
     }
     
