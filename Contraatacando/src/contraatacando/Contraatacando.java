@@ -24,6 +24,9 @@ import javax.swing.JFrame;
  * 
  * Luis Felipe Salazar A00817158
  * Melissa Janet Treviño A00816715
+ * 
+ * 24/2/16
+ * @version 1.0
  */
 public class Contraatacando extends JFrame implements Runnable, KeyListener {
 
@@ -417,7 +420,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * En este método se dibuja la imagen con la posición actualizada,
      * además que cuando la imagen es cargada te despliega una advertencia.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto de <code>Graphics</code> 
+     * usado para dibujar.
      */
     public void paint1(Graphics graDibujo) {
         if (iVidas > 0) {
@@ -448,7 +452,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      * Método donde se dibuja la imagen del juego.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto de <code>Graphics</code> 
+     * usado para dibujar.
      */
     public void dibujarJuego(Graphics graDibujo){
         // Dibuja la imagen de fondo.
@@ -477,7 +482,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      * Método donde se dibuja la pausa del juego.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto de <code>Graphics</code> 
+     * usado para dibujar.
      */
     public void dibujarPausa(Graphics graDibujo){
         // Si el booleano está encendido.
@@ -498,7 +504,8 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      * 
      * Método donde se dibujan las vidas del juego.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto de <code>Graphics</code> 
+     * usado para dibujar.
      */
     public void dibujarVidas(Graphics graDibujo){
         // Ciclo para dibujar cada vida en la pantalla con la imagen.
@@ -537,27 +544,28 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
             // Disparo hacia arriba             cTipo = ' '
-            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, ' ');
+            Bala blaBala = new Bala(basPrincipal.getX(), 
+                    basPrincipal.getY(), imaBala, ' ');
             lklBalas.add(blaBala);
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
             // Disparo a 45 grados a la izq     cTipo = i
-            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, 'a');
+            Bala blaBala = new Bala(basPrincipal.getX(), 
+                    basPrincipal.getY(), imaBala, 'a');
             lklBalas.add(blaBala);
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
             // Disparo a 45 grados a la der     cTipo = d
-            Bala blaBala = new Bala(basPrincipal.getX(), basPrincipal.getY(), imaBala, 's');
+            Bala blaBala = new Bala(basPrincipal.getX(), 
+                    basPrincipal.getY(), imaBala, 's');
             lklBalas.add(blaBala);
-            
         }
     }
     
     /**
      * getWidth
      * 
-     * Metodo de acceso que regresa el ancho de la pantalla
+     * Método de acceso que regresa el ancho de la pantalla
      * 
      * @return un <code>entero</code> que es el ancho de la pantalla.
-     * 
      */
     public int getWidth(){
         return WIDTH;
@@ -566,15 +574,11 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     /**
      * getHeight
      * 
-     * Metodo de acceso que regresa la altura de la pantalla
+     * Método de acceso que regresa la altura de la pantalla
      * 
      * @return un <code>entero</code> que es la altura de la pantalla.
-     * 
      */
     public int getHeight(){
         return HEIGHT;
     }
-    
-    
-    
 }
