@@ -14,6 +14,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.LinkedList;
 import javax.swing.JFrame;
@@ -453,6 +456,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             graDibujo.setFont(new Font("Arial",Font.BOLD,20));
             graDibujo.setColor(Color.white);
             graDibujo.drawString("Puntaje final: " + iPuntos, 30, 50);
+            // Aviso al usuario para pulsar reiniciar 
+            graDibujo.drawString("Pulsa R para reiniciar el juego...", 
+                    getWidth()/2-100, getHeight()/2+100);
         } 
     }
     
@@ -572,7 +578,23 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             lklBalas.add(blaBala);
             // Emitir sonido de disparo.
             sonidoDispara.play();
+        } else if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
+            // Se reinicia el juego.
+            reinicia();
         }
+    }
+    
+    public void reinicia() {
+        // Elimino el juego.
+        dispose();
+        
+        // Creo un juego (jFrame) nuevo.
+        Contraatacando jfrmJuego = new Contraatacando();
+        
+        // Ajusto el tamaño de la pantalla.
+        jfrmJuego.setSize(WIDTH,HEIGHT);
+        jfrmJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jfrmJuego.setVisible(true);
     }
     
     /**
