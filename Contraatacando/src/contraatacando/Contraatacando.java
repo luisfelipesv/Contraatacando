@@ -97,7 +97,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
      */
     public void inicializoImagenes() {
         // Creo la imagen de fondo.
-        URL urlImagenFondo = this.getClass().getResource("fondo.jpg");
+        URL urlImagenFondo = this.getClass().getResource("background.jpg");
         imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
         
         // Creo la imagen del Game Over.
@@ -404,7 +404,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
         }
 
         // Actualiza la imagen de fondo.
-        URL urlImagenFondo = this.getClass().getResource("fondo.jpg");
+        URL urlImagenFondo = this.getClass().getResource("background.jpg");
         Image imaImagenFondo = Toolkit.getDefaultToolkit()
                 .getImage(urlImagenFondo);
         graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), 
