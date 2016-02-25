@@ -369,7 +369,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
                         // Se reposiciona malo en la parte superior.
                         mloMalo.setX((int)(Math.random() * (getWidth() - 
                                 mloMalo.getAncho())));
-                        mloMalo.setY(-mloMalo.getAlto() - 20);
+                        mloMalo.setY(- 100);
                         iPuntos += 10;              // Se suman 10 puntos.
                         sonidoCatch.play();         // Emite el sonido.
                     }
