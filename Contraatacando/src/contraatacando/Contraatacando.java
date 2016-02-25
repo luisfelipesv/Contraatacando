@@ -566,8 +566,9 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
     public void keyReleased(KeyEvent keyEvent) {
         // Se cambia la dirección de Principal a 0 para que no se mueva.
         iDireccion = 0;
-        // Según la dirección se dispara la bala.
-        if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
+
+        if (!bPausa){
+            if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
             cDireccion = ' ';
             disparaBala();
         } else if (keyEvent.getKeyCode() == KeyEvent.VK_A){
@@ -583,6 +584,7 @@ public class Contraatacando extends JFrame implements Runnable, KeyListener {
             }
         }
     }
+}
     
     public void reinicia() {
         // Elimino el juego.
